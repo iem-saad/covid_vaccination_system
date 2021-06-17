@@ -1,0 +1,5 @@
+development:
+  adapter: oracle_enhanced
+  database: "(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = Hewlett-Packard)(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = XE)))"
+  username: SYSTEM
+  password: saad123

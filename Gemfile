@@ -22,6 +22,8 @@ gem 'activerecord-oracle_enhanced-adapter', '~> 6.1', '>= 6.1.4'
 gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
 #Gem for User Auth
 gem 'devise', '~> 4.8'
+# Gem for debugging
+gem 'pry', '~> 0.14.1'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

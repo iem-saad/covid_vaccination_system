@@ -1491,3 +1491,7 @@ a:focus {
 }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+#bootstrap-overrides input { /* 100+1=101 priority score, yay! */
+  height: 50px !important;
+}

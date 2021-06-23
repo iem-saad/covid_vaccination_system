@@ -24,6 +24,9 @@ gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
 gem 'devise', '~> 4.8'
 # Gem for debugging
 gem 'pry', '~> 0.14.1'
+
+# Gem for font awesome
+gem "font-awesome-rails"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

@@ -46,6 +46,17 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input100" %>
   </div>
 
+  <h4 class="pt-2">Please Select Your Role</h4>
+  <div class="btn-group pb-5" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="role" id="btnradio1" autocomplete="off" value="2">
+    <label class="btn btn-outline-primary" for="btnradio1">Head</label>
+
+    <input type="radio" class="btn-check" name="role" id="btnradio2" autocomplete="off" value="3">
+    <label class="btn btn-outline-primary" for="btnradio2">Staff</label>
+
+    <input type="radio" class="btn-check" name="role" id="btnradio3" autocomplete="off" value="4" checked >
+    <label class="btn btn-outline-primary" for="btnradio3">Vaccination Person</label>
+  </div>
   <div class="actions">
     <%= f.submit "Sign Up", class: "login100-form-btn" %>
   </div>

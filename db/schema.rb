@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_23_210839) do
-
-  create_table "admins", force: :cascade do |t|
-    t.integer "user_id", precision: 38
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_admins_on_user_id"
-  end
+ActiveRecord::Schema.define(version: 2021_06_24_083600) do
 
   create_table "aq$_internet_agent_privs", id: false, force: :cascade do |t|
     t.string "agent_name", limit: 30, null: false
@@ -54,6 +47,11 @@ ActiveRecord::Schema.define(version: 2021_06_23_210839) do
     t.date "last_time"
     t.decimal "jobno"
     t.index ["jobno"], name: "aq$_schedules_check", unique: true
+  end
+
+  create_table "assigned_roles", force: :cascade do |t|
+    t.integer "user_id", precision: 38, null: false
+    t.integer "role_id", precision: 38, null: false
   end
 
   create_table "def$_aqcall", primary_key: ["enq_tid", "step_no"], force: :cascade do |t|
@@ -1960,6 +1958,13 @@ ActiveRecord::Schema.define(version: 2021_06_23_210839) do
     t.index ["template_parameter_id", "user_id"], name: "repcat$_user_parm_values_u1", unique: true
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.integer "role_num", precision: 38, null: false
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 # Could not dump table "sqlplus_product_profile" because of following StandardError
 #   Unknown type 'LONG' for column 'long_value'
 
@@ -1976,6 +1981,10 @@ ActiveRecord::Schema.define(version: 2021_06_23_210839) do
     t.datetime "remember_created_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "salary", precision: 38
+    t.string "staff_position"
+    t.string "vac_pin", default: ""
+    t.integer "vac_stage", precision: 38
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "i_users_reset_password_token", unique: true
   end

@@ -10,9 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    if current_user.present && params[:role].present?
+      max_id = AssignedRole.maximum(:id)
+      sql = "INSERT INTO ASSIGNED_ROLES (ROLE_ID, USER_ID, ID) VALUES (#{params[:role].to_i}, #{current_user.id}, #{max_id + 1})"
+      ActiveRecord::Base.connection.exec_insert(sql)
+    end
+  end
 
   # GET /resource/edit
   # def edit
@@ -42,7 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:age, :dob, :first_name, :last_name, :cnic])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:age, :dob, :first_name, :last_name, :cnic, :role])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

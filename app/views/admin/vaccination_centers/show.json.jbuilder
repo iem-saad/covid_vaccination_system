@@ -1,0 +1,1 @@
+json.partial! "admin_vaccination_centers/admin_vaccination_center", admin_vaccination_center: @admin_vaccination_center

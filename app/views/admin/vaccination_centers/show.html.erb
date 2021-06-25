@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @admin_vaccination_center.name %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @admin_vaccination_center.location %>
+</p>
+
+<p>
+  <strong>Head:</strong>
+  <%= @admin_vaccination_center.head_id %>
+</p>
+
+<%= link_to 'Edit', edit_admin_vaccination_center_path(@admin_vaccination_center) %> |
+<%= link_to 'Back', admin_vaccination_centers_path %>

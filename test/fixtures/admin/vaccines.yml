@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  no_of_doses: 1
+  days_to_sec_dose: 1
+  amount: 1
+
+two:
+  name: MyString
+  no_of_doses: 1
+  days_to_sec_dose: 1
+  amount: 1

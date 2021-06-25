@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_083600) do
+ActiveRecord::Schema.define(version: 2021_06_24_135346) do
+
+  create_table "admin_vaccination_centers", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "location", null: false
+    t.integer "head_id", precision: 38, null: false
+  end
+
+  create_table "admin_vaccines", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "no_of_doses", precision: 38, null: false
+    t.integer "days_to_sec_dose", precision: 38, null: false
+    t.integer "amount", precision: 38, null: false
+  end
 
   create_table "aq$_internet_agent_privs", id: false, force: :cascade do |t|
     t.string "agent_name", limit: 30, null: false

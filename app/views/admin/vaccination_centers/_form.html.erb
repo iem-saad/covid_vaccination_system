@@ -1,0 +1,32 @@
+<%= form_with(model: admin_vaccination_center) do |form| %>
+  <% if admin_vaccination_center.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admin_vaccination_center.errors.count, "error") %> prohibited this admin_vaccination_center from being saved:</h2>
+
+      <ul>
+        <% admin_vaccination_center.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_area :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :head_id %>
+    <%= form.number_field :head_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

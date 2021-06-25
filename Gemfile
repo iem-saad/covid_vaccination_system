@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.7'
 # Gem for Configuring Oracle
 gem 'activerecord-oracle_enhanced-adapter', '~> 6.1', '>= 6.1.4'
 gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
+gem 'hairtrigger'
 #Gem for User Auth
 gem 'devise', '~> 4.8'
 # Gem for debugging

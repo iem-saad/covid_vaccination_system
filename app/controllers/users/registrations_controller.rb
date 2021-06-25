@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    if current_user.present && params[:role].present?
+    if current_user.present? && params[:role].present?
       max_id = AssignedRole.maximum(:id)
       sql = "INSERT INTO ASSIGNED_ROLES (ROLE_ID, USER_ID, ID) VALUES (#{params[:role].to_i}, #{current_user.id}, #{max_id + 1})"
       ActiveRecord::Base.connection.exec_insert(sql)

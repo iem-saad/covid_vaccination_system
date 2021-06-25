@@ -1,0 +1,32 @@
+<%= form_with(model: admin_allocated_vacc) do |form| %>
+  <% if admin_allocated_vacc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admin_allocated_vacc.errors.count, "error") %> prohibited this admin_allocated_vacc from being saved:</h2>
+
+      <ul>
+        <% admin_allocated_vacc.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :vac_id %>
+    <%= form.select :vac_id, options_for_select( Admin::Vaccine.all_vaccines.map{|k| [k.name, k.id]}, @admin_allocated_vacc.vac_id), {}, { class: 'form-control', required: true }%>
+  </div>
+
+  <div class="field">
+    <%= form.label :center_id %>
+    <%= form.select :center_id, options_for_select( Admin::VaccinationCenter.all_centers.map{|k| [k.name, k.id]}, @admin_allocated_vacc.center_id), {}, { class: 'form-control', required: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

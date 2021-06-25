@@ -27,4 +27,10 @@ class User < ApplicationRecord
     person = ActiveRecord::Base.connection.exec_query(sql)
     person.rows.first.present?
   end
+
+  def self.all_heads
+    sql = "SELECT id, first_name FROM USERS WHERE ID IN (Select user_id from ASSIGNED_ROLES where role_id = 2 AND user_id NOT IN (SELECT head_id FROM ADMIN_VACCINATION_CENTERS))"
+    heads = ActiveRecord::Base.connection.exec_query(sql)
+    heads.rows
+  end
 end

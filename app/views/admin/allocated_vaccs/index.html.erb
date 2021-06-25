@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Admin Allocated Vaccs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vac</th>
+      <th>Center</th>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_allocated_vaccs.each do |admin_allocated_vacc| %>
+      <tr>
+        <td><%= vacc_name admin_allocated_vacc.vac_id %></td>
+        <td><%= center_name admin_allocated_vacc.center_id %></td>
+        <td><%= admin_allocated_vacc.amount %></td>
+        <td><%= link_to 'Show', admin_allocated_vacc %></td>
+        <td><%= link_to 'Edit', edit_admin_allocated_vacc_path(admin_allocated_vacc) %></td>
+        <td><%= button_to 'Destroy', admin_allocated_vacc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Allocated Vacc', new_admin_allocated_vacc_path %>

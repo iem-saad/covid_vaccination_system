@@ -10,3 +10,4 @@
  Role.create(role_num: 3, name: 'Staff')
  Role.create(role_num: 4, name: 'Person')
  AssignedRole.create(user_id: User.first.id, role_id: Role.first.id)
+Admin::Vaccine.create(name: 'CanSino', no_of_doses: 1, days_to_sec_dose: 0, amount: 5000000)

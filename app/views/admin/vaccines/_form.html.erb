@@ -1,7 +1,7 @@
 <%= form_with(model: admin_vaccine) do |form| %>
   <% if admin_vaccine.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(admin_vaccine.errors.count, "error") %> prohibited this admin_vaccine from being saved:</h2>
+      <h2><%= pluralize(vaccine.errors.count, "error") %> prohibited this vaccine from being saved:</h2>
 
       <ul>
         <% admin_vaccine.errors.each do |error| %>
@@ -13,25 +13,25 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :no_of_doses %>
-    <%= form.number_field :no_of_doses %>
+    <%= form.number_field :no_of_doses, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :days_to_sec_dose %>
-    <%= form.number_field :days_to_sec_dose %>
+    <%= form.number_field :days_to_sec_dose, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :amount %>
-    <%= form.number_field :amount %>
+    <%= form.number_field :amount, class: 'form-control' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-primary' %>
   </div>
 <% end %>

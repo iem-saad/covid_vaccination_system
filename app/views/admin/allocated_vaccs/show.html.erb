@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vac:</strong>
+  <%= vacc_name @admin_allocated_vacc.vac_id %>
+</p>
+
+<p>
+  <strong>Center:</strong>
+  <%= center_name @admin_allocated_vacc.center_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @admin_allocated_vacc.amount %>
+</p>
+
+<%= link_to 'Edit', edit_admin_allocated_vacc_path(@admin_allocated_vacc) %> |
+<%= link_to 'Back', admin_allocated_vaccs_path %>

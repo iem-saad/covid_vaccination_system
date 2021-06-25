@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
+    resources :allocated_vaccs
+  end
+  namespace :admin do
     resources :vaccination_centers
   end
   namespace :admin do

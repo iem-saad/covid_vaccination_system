@@ -22,6 +22,7 @@ class Admin::VaccinesController < ApplicationController
   # POST /admin/vaccines or /admin/vaccines.json
   def create
     max_id = Admin::Vaccine.maximum(:id)
+    max_id = 0 if max_id.nil?
     sql = "INSERT INTO ADMIN_VACCINES VALUES (#{max_id+1}, '#{admin_vaccine_params[:name]}', #{admin_vaccine_params[:no_of_doses]}, #{admin_vaccine_params[:days_to_sec_dose]}, #{admin_vaccine_params[:amount]})"
     respond_to do |format|
       if ActiveRecord::Base.connection.exec_insert(sql)

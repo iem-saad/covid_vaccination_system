@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_24_135346) do
+ActiveRecord::Schema.define(version: 2021_06_25_221517) do
+
+  create_table "admin_allocated_vaccs", force: :cascade do |t|
+    t.integer "vac_id", precision: 38, null: false
+    t.integer "center_id", precision: 38, null: false
+    t.integer "amount", precision: 38, null: false
+  end
 
   create_table "admin_vaccination_centers", force: :cascade do |t|
     t.string "name", null: false
@@ -2102,4 +2108,3 @@ ActiveRecord::Schema.define(version: 2021_06_24_135346) do
   add_synonym "tab", "sys.tab", force: true
   add_synonym "tabquotas", "sys.tabquotas", force: true
 
-end

@@ -13,20 +13,20 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :location %>
-    <%= form.text_area :location %>
+    <%= form.text_area :location, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :head_id %>
-    <%= form.number_field :head_id %>
+    <%= form.select :head_id, options_for_select(User.all_heads.map{|k| [k.second, k.first]}, @admin_vaccination_center.head_id), {}, { class: 'form-control', required: true} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit  class: 'btn btn-primary' %>
   </div>
 <% end %>

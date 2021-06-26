@@ -1,0 +1,29 @@
+<h3>Hi, <%= current_user.first_name %> You are going to apply for covid vaccination. BEST OF LUCK!</h3>
+
+<h2 class="text-center"><strong>At the vaccination centre</strong></h2>
+<p>When waiting in line outside of the vaccination centre, and once you are inside:</p>
+<ul><li>Keep your mask on at all times.</li>
+	<li>Don't touch your mask once it's on and properly fitted.</li>
+	<li>Keep at least 1 metre distance between yourself and others.</li>
+	<li>Sanitize or wash your hands after touching door handles, surfaces or furniture.</li>
+	<li>Don’t touch your face.</li>
+</ul>
+<h2 class="text-center"><strong>During Vaccination</strong></h2>
+<p>All COVID-19 vaccines, regardless of the manufacturer, are administered in the same way. The vaccine will be injected into the muscle in your upper arm. It should take no longer than a few seconds and may cause a little pain.</p>
+<p>Keep your mask on during your appointment and turn your face away from the face of the vaccinator — to help keep you both safe.&nbsp;</p>
+<p>If you are feeling nervous or anxious:</p>
+<ul><li>Remember that it is just a small prick that could save your life.</li>
+	<li>Take slow deep breaths.&nbsp;</li>
+	<li>Look away from the needle.&nbsp;</li>
+</ul>
+<h2 class="text-center"><strong>After Vaccination</strong></h2>
+<p>After being vaccinated, some side effects are normal and expected. Side effects are a sign that your body is building immune protection.&nbsp;</p>
+<p>Common side effects observed with COVID-19 vaccines include:&nbsp;</p>
+<ul><li>Some pain, swelling and redness on the arm where you received the vaccine&nbsp;&nbsp;</li>
+	<li>Chills or mild fever&nbsp;&nbsp;</li>
+	<li>Tiredness</li>
+	<li>Headaches</li>
+	<li>Joint pain or muscle ache</li>
+</ul>
+
+<%= render 'form', assigned_vacc: @assigned_vacc %>

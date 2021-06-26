@@ -39,4 +39,10 @@ class User < ApplicationRecord
   def self.all_heads
     result = User.find_by_sql("SELECT * FROM USERS WHERE ID IN (Select user_id from ASSIGNED_ROLES where role_id = 2 AND user_id NOT IN (SELECT head_id FROM ADMIN_VACCINATION_CENTERS))")
   end
+
+  def applied_for_vacc?
+    sql = "Select * from ASSIGNED_VACCS where user_id = #{self.id}"
+    person = ActiveRecord::Base.connection.exec_query(sql)
+    person.rows.first.present?
+  end
 end

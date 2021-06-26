@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vaccine:</strong>
+  <%= @assigned_vacc.vaccine_id %>
+</p>
+
+<p>
+  <strong>Vaccine center:</strong>
+  <%= @assigned_vacc.vaccine_center_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @assigned_vacc.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_assigned_vacc_path(@assigned_vacc) %> |
+<%= link_to 'Back', assigned_vaccs_path %>

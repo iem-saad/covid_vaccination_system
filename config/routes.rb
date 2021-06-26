@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :assigned_vaccs
   namespace :admin do
     resources :allocated_vaccs
   end
@@ -22,5 +23,7 @@ Rails.application.routes.draw do
     resources :dashboard
     end
   resources :dashboard, only: %i[index]
+  get '/vac_details', to: 'assigned_vaccs#view_vaccination_details'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

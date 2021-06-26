@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Assigned Vaccs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vaccine</th>
+      <th>Vaccine center</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assigned_vaccs.each do |assigned_vacc| %>
+      <tr>
+        <td><%= assigned_vacc.vaccine_id %></td>
+        <td><%= assigned_vacc.vaccine_center_id %></td>
+        <td><%= assigned_vacc.user_id %></td>
+        <td><%= link_to 'Show', assigned_vacc %></td>
+        <td><%= link_to 'Edit', edit_assigned_vacc_path(assigned_vacc) %></td>
+        <td><%= link_to 'Destroy', assigned_vacc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Assigned Vacc', new_assigned_vacc_path %>

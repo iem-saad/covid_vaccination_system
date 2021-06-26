@@ -1,1 +1,14 @@
-<h1>Hello From User Dashboard!</h1>
+<h3>Hi, <%= current_user.first_name %> We Hope You Are GOOD!</h3>
+
+<% unless current_user.applied_for_vacc? %>
+<div class="row pt-5">
+	<%= link_to 'Get Vaccinated', new_assigned_vacc_path, class: 'btn btn-primary' %>
+</div>
+<% else %>
+	<div class="row">
+		Congratulations! You Have Successfully Regestered For Vaccination, Click Below to get your vaccination details!
+		<div class="row pt-5">
+			<%= link_to 'View Vaccination Details', vac_details_path(user_id: current_user.id), class: 'btn btn-primary' %>
+		</div>
+	</div>
+<% end %>

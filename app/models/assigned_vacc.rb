@@ -1,0 +1,2 @@
+class AssignedVacc < ApplicationRecord
+end

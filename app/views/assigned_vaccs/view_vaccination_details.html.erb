@@ -1,0 +1,4 @@
+<h3>You Are Required to Go to <%=center_name @vacc_detail.vaccine_center_id %></h3>
+<h3>Address: <%= center_location @vacc_detail.vaccine_center_id %></h3>
+<h3>You Will Recieve <%= vac_dose_count @vacc_detail.vaccine_id %> Dose of: <%= vacc_name @vacc_detail.vaccine_id %></h3>
+<h3>Pin: <%= current_user.vac_pin %></h3>

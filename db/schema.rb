@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_25_221517) do
+ActiveRecord::Schema.define(version: 2021_06_26_211530) do
 
   create_table "admin_allocated_vaccs", force: :cascade do |t|
     t.integer "vac_id", precision: 38, null: false
@@ -71,6 +71,15 @@ ActiveRecord::Schema.define(version: 2021_06_25_221517) do
   create_table "assigned_roles", force: :cascade do |t|
     t.integer "user_id", precision: 38, null: false
     t.integer "role_id", precision: 38, null: false
+  end
+
+  create_table "assigned_vaccs", force: :cascade do |t|
+    t.integer "user_id", precision: 38, null: false
+    t.integer "vaccine_id", precision: 38, null: false
+    t.integer "vaccine_center_id", precision: 38, null: false
+    t.index ["user_id"], name: "i_assigned_vaccs_user_id"
+    t.index ["vaccine_center_id"], name: "i_ass_vac_vac_cen_id"
+    t.index ["vaccine_id"], name: "i_assigned_vaccs_vaccine_id"
   end
 
   create_table "def$_aqcall", primary_key: ["enq_tid", "step_no"], force: :cascade do |t|

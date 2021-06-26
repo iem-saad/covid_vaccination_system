@@ -28,9 +28,15 @@ class User < ApplicationRecord
     person.rows.first.present?
   end
 
-  def self.all_heads
+  def self.all_heads_array(id)
+    name =  User.find_by_sql("SELECT * FROM USERS WHERE id = #{id}").first.first_name
     sql = "SELECT id, first_name FROM USERS WHERE ID IN (Select user_id from ASSIGNED_ROLES where role_id = 2 AND user_id NOT IN (SELECT head_id FROM ADMIN_VACCINATION_CENTERS))"
     heads = ActiveRecord::Base.connection.exec_query(sql)
-    heads.rows
+    result = heads.rows
+    result.push([id,name])
+  end
+
+  def self.all_heads
+    result = User.find_by_sql("SELECT * FROM USERS WHERE ID IN (Select user_id from ASSIGNED_ROLES where role_id = 2 AND user_id NOT IN (SELECT head_id FROM ADMIN_VACCINATION_CENTERS))")
   end
 end

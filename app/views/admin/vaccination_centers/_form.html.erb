@@ -23,7 +23,11 @@
 
   <div class="field">
     <%= form.label :head_id %>
-    <%= form.select :head_id, options_for_select(User.all_heads.map{|k| [k.second, k.first]}, @admin_vaccination_center.head_id), {}, { class: 'form-control', required: true} %>
+    <% if action_name == "new" %>
+      <%= form.select :head_id, options_for_select(User.all_heads.map{|k| [k.first_name, k.id]}), {}, { class: 'form-control', required: true} %>
+    <% else %>
+      <%= form.select :head_id, options_for_select(User.all_heads_array(@admin_vaccination_center.head_id).map{|k| [k.second, k.first]}), {}, { class: 'form-control', required: true} %>
+    <% end %>
   </div>
 
   <div class="actions">

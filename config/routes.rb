@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     end
   resources :dashboard, only: %i[index]
   get '/vac_details', to: 'assigned_vaccs#view_vaccination_details'
+  get '/about', to: 'home#about'
+  get '/contact', to: 'home#contact'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

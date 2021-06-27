@@ -34,19 +34,11 @@
         <li class="nav-item active">
         <a class="nav-link" href="/">Home</a>
         </li>
-         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+         <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+         <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
           <% if current_user.present? && current_user.admin? %>
             <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Admin Dashboard</a></li>
           <% end %>
-
-          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="department.html" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Department <i class="icofont-thin-down"></i></a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown02">
-            <li><a class="dropdown-item" href="department.html">Departments</a></li>
-            <li><a class="dropdown-item" href="department-single.html">Department Single</a></li>
-          </ul>
-          </li>
-
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctors <i class="icofont-thin-down"></i></a>
           <ul class="dropdown-menu" aria-labelledby="dropdown03">
@@ -62,7 +54,6 @@
             <li><a class="nav-link " href="/users/sign_in" >Sign In</a></li>
             <li><a class="nav-link " href="/users/sign_up" >Sign Up</a></li>
           <% end %>
-         <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
       </ul>
       </div>
     </div>

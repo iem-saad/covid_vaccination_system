@@ -23,7 +23,14 @@ gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
 gem 'hairtrigger'
 # Gem for authorization
 gem 'cancancan'
-#Gem for User Auth
+
+# Gem For Seeds
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
+gem 'groupdate'
+
+gem "chartkick"
+
 gem 'devise', '~> 4.8'
 # Gem for debugging
 gem 'pry', '~> 0.14.1'

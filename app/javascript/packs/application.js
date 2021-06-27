@@ -7,15 +7,12 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "../stylesheets/application";
 document.addEventListener("turbolinks:load", function() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
         $('[data-toggle="popover"]').popover()
     })
 })
-require("@rails/ujs").start()
-require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
@@ -23,5 +20,13 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 import "bootstrap"
-//= require jquery
-//= require jquery_ujs
+require("plugins/bootstrap")
+require("plugins/bootstrap.min")
+require("plugins/jquery.counterup.min")
+require("plugins/jquery.easing")
+require("plugins/popper")
+require("plugins/shuffle.min")
+require("plugins/slick")
+require("plugins/slick.min")
+require("chartkick")
+require("chart.js")

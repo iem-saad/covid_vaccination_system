@@ -10,3 +10,8 @@
 <div class="row pt-5">
 	<%= link_to 'Allocate Vaccines', admin_allocated_vaccs_path, class: 'btn btn-primary' %>
 </div>
+
+<div class="row">
+	<h2>Pie Chart For Vaccination Registrations</h2>
+	<%= pie_chart({"Applied For Vaccination" => @applied_vac, "Not Applied For Vaccination" => @non_applied_vac}) %>
+</div>

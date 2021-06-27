@@ -1,0 +1,10 @@
+<h2>Please Enter Pin For <%= user_name params[:user]%></h2>
+
+<%= form_with url: head_vaccinate_path do |f| %>
+	<div class="field">
+   		<%= f.label "Enter Pin" %>
+   		<%= f.text_field :pin, class: 'form-control', maxlength: 5 %>
+   		<%= f.hidden_field :user, value: 0 %>
+   </div>
+   <%= f.submit "Process With Vaccination", class: 'btn btn-primary' %>
+<% end %>

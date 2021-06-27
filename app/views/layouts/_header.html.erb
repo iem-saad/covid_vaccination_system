@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-6">
           <div class="text-lg-right top-right-bar mt-2 mt-lg-0">
-            <a href="tel:+23-345-67890" >
+            <a href="tel:+041111128128" >
               <span>Call Now : </span>
               <span class="h4">(041) 111 128 128</span>
             </a>
@@ -38,6 +38,12 @@
          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
           <% if current_user.present? && current_user.admin? %>
             <li class="nav-item"><a class="nav-link" href="/admin/dashboard">Admin Dashboard</a></li>
+          <% end %>
+          <% if current_user.present? && current_user.vac_person? %>
+            <li class="nav-item"><a class="nav-link" href="/dashboard">Patient Dashboard</a></li>
+          <% end %>
+          <% if current_user.present? && current_user.head? %>
+            <li class="nav-item"><a class="nav-link" href="/head/dashboard">Patient Dashboard</a></li>
           <% end %>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="doctor.html" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctors <i class="icofont-thin-down"></i></a>

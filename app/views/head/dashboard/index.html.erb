@@ -1,0 +1,35 @@
+<h2>Helllo From Head <%= current_user.first_name %></h2>
+<% if @center_data.present? %>
+<div class="row mt-5">
+	<h4>You Are Assigned to <%= @center_data.name %></h4>
+	<h4>Location is <%= @center_data.location%></h4>	
+</div>
+<% if @center_persons.any? %>
+<div class="row">
+	<h2>Following Users Are Ready For Vaccination Their Count is: <%=@center_persons.count%> </h2>
+	<table>
+	  <thead>
+	    <tr>
+	      <th>Person</th>
+	      <th>Vaccine</th>
+	      <th>Inject Dose</th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @center_persons.each do |person| %>
+	      <tr>
+	        <td><%= user_name person.user_id %></td>
+	        <td><%= vacc_name person.vaccine_id %></td>
+	        <td><%= link_to 'Inject', head_get_pin_path(user: person.user_id), class: 'btn btn-info' %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+<% else %>
+	<div class="row">Ops! There is no one to get vaccinated. Please Enhance Your Vaccination Compaign</div>
+<% end %>
+<% else %>
+	<div class="row">Ops! You Havenot Assigned to any vaccination Center Yet!</div>
+<% end %>

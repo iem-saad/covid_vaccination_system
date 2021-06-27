@@ -8,8 +8,12 @@ class Ability
     if user.admin?
       can :manage, :all
       cannot :manage, DashboardController
+    elsif user.head?
+      cannot :manage, Admin::AdminController
+      can :manage, :all
     else
       cannot :manage, Admin::DashboardController
+      cannot :manage, Head::DashboardController
       cannot :manage, Admin::VaccinesController
       cannot :manage, Admin::VaccinationCentersController
       cannot :manage, Admin::AllocatedVaccsController

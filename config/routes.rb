@@ -21,7 +21,12 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :dashboard
-    end
+  end
+  namespace :head do
+    resources :dashboard
+    get '/get_pin', to: 'vaccinations#get_pin'
+    post '/vaccinate', to: 'vaccinations#vaccinate'
+  end
   resources :dashboard, only: %i[index]
   get '/vac_details', to: 'assigned_vaccs#view_vaccination_details'
   get '/about', to: 'home#about'

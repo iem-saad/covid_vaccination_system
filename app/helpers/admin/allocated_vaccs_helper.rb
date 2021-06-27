@@ -18,5 +18,9 @@ module Admin::AllocatedVaccsHelper
 
   def user_name(id)
     User.find_by_sql("SELECT * FROM USERS WHERE id = #{id}").first.first_name
-  end 
+  end
+
+  def get_user(id)
+    User.find_by_sql("SELECT * FROM  USERS WHERE ID = #{id}").first
+  end
 end

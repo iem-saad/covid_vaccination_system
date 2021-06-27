@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_26_211530) do
+ActiveRecord::Schema.define(version: 2021_06_27_214553) do
 
   create_table "admin_allocated_vaccs", force: :cascade do |t|
     t.integer "vac_id", precision: 38, null: false
@@ -221,6 +221,11 @@ ActiveRecord::Schema.define(version: 2021_06_26_211530) do
     t.string "topic", limit: 50, null: false
     t.decimal "seq", null: false
     t.string "info", limit: 80
+  end
+
+  create_table "injected_vaccs", force: :cascade do |t|
+    t.integer "user_id", precision: 38, null: false
+    t.integer "vacc_id", precision: 38, null: false
   end
 
   create_table "logmnr_age_spill$", primary_key: ["session#", "xidusn", "xidslt", "xidsqn", "chunk", "sequence#"], force: :cascade do |t|

@@ -1,0 +1,2 @@
+class InjectedVacc < ApplicationRecord
+end

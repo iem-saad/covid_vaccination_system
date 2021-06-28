@@ -1,4 +1,9 @@
-<h2>Helllo From Head <%= current_user.first_name %></h2>
+<% if params[:success].present? %>
+<div class="alert alert-success" role="alert">
+  Successfully Vaccinated User
+</div>
+<% end %>
+<h2>Hello, <%= current_user.first_name %></h2>
 <% if @center_data.present? %>
 <div class="row mt-5">
 	<h4>You Are Assigned to <%= @center_data.name %></h4>
@@ -21,7 +26,11 @@
 	      <tr>
 	        <td><%= user_name person.user_id %></td>
 	        <td><%= vacc_name person.vaccine_id %></td>
-	        <td><%= link_to 'Inject', head_get_pin_path(user: person.user_id), class: 'btn btn-info' %></td>
+	        <% if get_user(person.user_id).vaccinated? %>
+	        	<td><button type="button" class="btn btn-success" disabled>Already Vaccinated</button></td>
+	        <% else %>
+	        	<td><%= link_to 'Inject', head_get_pin_path(user: person.user_id), class: 'btn btn-info' %></td>
+	        <% end %>
 	      </tr>
 	    <% end %>
 	  </tbody>

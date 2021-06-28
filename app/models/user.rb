@@ -45,4 +45,13 @@ class User < ApplicationRecord
     person = ActiveRecord::Base.connection.exec_query(sql)
     person.rows.first.present?
   end
+
+  def vaccinated?
+    sql = "SELECT count(user_id) from INJECTED_VACCS WHERE user_id = #{self.id}"
+    count = ActiveRecord::Base.connection.exec_query(sql).rows.first.first
+    return false if count == 0
+    vacc = AssignedVacc.find_by_sql("SELECT * FROM ASSIGNED_VACCS WHERE user_id = #{self.id}").first.vaccine_id
+    required_doses = Admin::Vaccine.find_by_sql("SELECT * FROM ADMIN_VACCINES WHERE ID = #{vacc}").first.no_of_doses
+    required_doses == count
+  end
 end

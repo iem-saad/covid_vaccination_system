@@ -15,3 +15,7 @@
 	<h2>Pie Chart For Vaccination Registrations</h2>
 	<%= pie_chart({"Applied For Vaccination" => @applied_vac, "Not Applied For Vaccination" => @non_applied_vac}) %>
 </div>
+<div class="row">
+	<h2>Pie Chart For Vaccination Drive</h2>
+	<%= pie_chart({"Got Vaccinated" => @vaccinated, "Applicants Left With Vaccination" => @applied_vac - @vaccinated}) %>
+</div>

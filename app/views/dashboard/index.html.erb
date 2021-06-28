@@ -1,14 +1,27 @@
-<h3>Hi, <%= current_user.first_name %> We Hope You Are GOOD!</h3>
+<h3 class="text-center mt-5 mb-5">Hi, <%= current_user.first_name %> We Hope You Are GOOD!</h3>
 
-<% unless current_user.applied_for_vacc? %>
+<% if current_user.vaccinated? %>
+<button type="button" class="btn btn-success" disabled>Congratulations You've been Vaccinated</button>
+<button type="button" class="btn btn-success" disabled>Got Dose of <%= vacc_name current_user.vacc_details.vaccine_id %></button>
+<button type="button" class="btn btn-success" disabled>At <%= center_name current_user.vacc_details.vaccine_center_id %></button>
+<% elsif current_user.partial_vaccinated? %>
+<button type="button" class="btn btn-danger" disabled>Congratulations You Got Your First Dose</button>
+<button type="button" class="btn btn-danger" disabled>Got Dose of <%= vacc_name current_user.vacc_details.vaccine_id %></button>
+<button type="button" class="btn btn-danger" disabled>At <%= center_name current_user.vacc_details.vaccine_center_id %></button>
 <div class="row pt-5">
-	<%= link_to 'Get Vaccinated', new_assigned_vacc_path, class: 'btn btn-primary' %>
+		<%= link_to 'View Vaccination Details', vac_details_path(user_id: current_user.id), class: 'btn btn-primary' %>
 </div>
 <% else %>
-	<div class="row">
-		Congratulations! You Have Successfully Regestered For Vaccination, Click Below to get your vaccination details!
-		<div class="row pt-5">
-			<%= link_to 'View Vaccination Details', vac_details_path(user_id: current_user.id), class: 'btn btn-primary' %>
-		</div>
+	<% unless current_user.applied_for_vacc? %>
+	<div class="row pt-5">
+		<%= link_to 'Get Vaccinated', new_assigned_vacc_path, class: 'btn btn-primary' %>
 	</div>
+	<% else %>
+		<div class="row">
+			Congratulations! You Have Successfully Regestered For Vaccination, Click Below to get your vaccination details!
+			<div class="row pt-5">
+				<%= link_to 'View Vaccination Details', vac_details_path(user_id: current_user.id), class: 'btn btn-primary' %>
+			</div>
+		</div>
+	<% end %>
 <% end %>

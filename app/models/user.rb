@@ -54,4 +54,38 @@ class User < ApplicationRecord
     required_doses = Admin::Vaccine.find_by_sql("SELECT * FROM ADMIN_VACCINES WHERE ID = #{vacc}").first.no_of_doses
     required_doses == count
   end
+
+  def partial_vaccinated?
+    return true if self.vac_stage == 1
+    return false
+  end
+
+  def update_vac_stage
+    sql = "SELECT count(user_id) from INJECTED_VACCS WHERE user_id = #{self.id}"
+    count = ActiveRecord::Base.connection.exec_query(sql).rows.first.first
+    return false if count == 0
+    vacc = AssignedVacc.find_by_sql("SELECT * FROM ASSIGNED_VACCS WHERE user_id = #{self.id}").first.vaccine_id
+    required_doses = Admin::Vaccine.find_by_sql("SELECT * FROM ADMIN_VACCINES WHERE ID = #{vacc}").first.no_of_doses
+    if required_doses == count
+      ActiveRecord::Base.connection.execute("Update USERS SET VAC_STAGE = 2 where id = #{self.id}")
+    else
+      ActiveRecord::Base.connection.execute("Update USERS SET VAC_STAGE = 1 where id = #{self.id}")
+    end
+  end
+
+  def get_vac_stage
+    return self.vac_stage
+  end
+
+  def self.vaccinated_users
+    User.find_by_sql("SELECT * FROM USERS WHERE VAC_STAGE = 2")
+  end
+
+  def non_vaccinated_users
+    User.find_by_sql("SELECT * FROM USERS WHERE ID NOT IN (SELECT ID FROM USERS WHERE VAC_STAGE = 2)")
+  end
+
+  def vacc_details
+    AssignedVacc.find_by_sql("SELECT * FROM ASSIGNED_VACCS WHERE USER_ID = #{self.id}").first
+  end
 end

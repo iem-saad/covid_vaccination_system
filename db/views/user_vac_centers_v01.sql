@@ -1,0 +1,4 @@
+SELECT
+  ASSIGNED_VACCS.user_id,
+  ASSIGNED_VACCS.vaccine_center_id
+FROM ASSIGNED_VACCS

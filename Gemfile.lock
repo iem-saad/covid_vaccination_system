@@ -195,6 +195,9 @@ GEM
     scenic (1.5.4)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
+    scenic-oracle_adapter (1.1.0)
+      activerecord-oracle_enhanced-adapter (>= 1.5.0)
+      scenic (~> 1.5.4)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -263,6 +266,7 @@ DEPENDENCIES
   ruby-oci8 (~> 2.2, >= 2.2.9)
   sass-rails (>= 6)
   scenic (~> 1.5, >= 1.5.4)
+  scenic-oracle_adapter
   selenium-webdriver
   sqlite3 (~> 1.4)
   turbolinks (~> 5)

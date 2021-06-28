@@ -23,6 +23,7 @@ gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
 gem 'hairtrigger'
 # Gem for views
 gem 'scenic', '~> 1.5', '>= 1.5.4'
+gem 'scenic-oracle_adapter'
 # Gem for authorization
 gem 'cancancan'
 

@@ -20,9 +20,8 @@
         <td><%= vaccine.no_of_doses %></td>
         <td><%= vaccine.days_to_sec_dose %></td>
         <td><%= vaccine.amount %></td>
-        <td><%= link_to 'Show', vaccine %></td>
-        <td><%= link_to 'Edit', edit_admin_vaccine_path(vaccine) %></td>
-        <td><%= button_to 'Destroy', admin_vaccine_path(vaccine), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', vaccine, class: 'btn btn-info btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_admin_vaccine_path(vaccine),  class: 'btn btn-info btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +29,4 @@
 
 <br>
 
-<%= link_to 'New Vaccine', new_admin_vaccine_path %>
+<%= link_to 'New Vaccine', new_admin_vaccine_path, class: 'btn btn-primary' %>

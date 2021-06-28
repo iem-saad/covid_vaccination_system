@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_27_214553) do
+ActiveRecord::Schema.define(version: 2021_06_28_185323) do
 
   create_table "admin_allocated_vaccs", force: :cascade do |t|
     t.integer "vac_id", precision: 38, null: false
@@ -2122,3 +2122,216 @@ ActiveRecord::Schema.define(version: 2021_06_27_214553) do
   add_synonym "tab", "sys.tab", force: true
   add_synonym "tabquotas", "sys.tabquotas", force: true
 
+
+  create_view "mview_workload", sql_definition: <<-SQL
+      select
+    a.collectionid# as workloadid,
+    a.collecttime as import_time,
+    a.queryid# as queryid,
+    a.application,
+    a.cardinality,
+    a.resultsize,
+    a.qdate as lastuse,
+    a.frequency,
+    a.uname as owner,
+    a.priority,
+    a.sql_text as query,
+    a.exec_time as responsetime
+  from SYSTEM.MVIEW$_ADV_WORKLOAD A, SYSTEM.MVIEW$_ADV_LOG B, ALL_USERS D
+  WHERE a.collectionid# = b.runid#
+  AND b.uname = d.username
+  AND d.user_id = userenv('SCHEMAID')
+  SQL
+  create_view "mview_filter", sql_definition: <<-SQL
+      select
+        a.filterid# as filterid,
+        a.subfilternum# as subfilternum,
+        decode(a.subfiltertype,1,'APPLICATION',2,'CARDINALITY',3,'LASTUSE',
+                               4,'FREQUENCY',5,'USER',6,'PRIORITY',7,'BASETABLE',
+                               8,'RESPONSETIME',9,'COLLECTIONID',10,'TRACENAME',
+                               11,'SCHEMA','UNKNOWN') AS subfiltertype,
+        a.str_value,
+        to_number(decode(a.num_value1,-999,NULL,a.num_value1)) AS num_value1,
+        to_number(decode(a.num_value2,-999,NULL,a.num_value2)) AS num_value2,
+        a.date_value1,
+        a.date_value2
+     from system.mview$_adv_filter a, system.mview$_adv_log b, ALL_USERS u
+     WHERE a.filterid# = b.runid#
+     AND b.uname = u.username
+     AND u.user_id = userenv('SCHEMAID')
+  SQL
+  create_view "mview_log", sql_definition: <<-SQL
+      select
+        m.runid# as id,
+        m.filterid# as filterid,
+        m.run_begin,
+        m.run_end,
+        decode(m.run_type,1,'EVALUATE',2,'EVALUATE_W',3,'RECOMMEND',
+                        4,'RECOMMEND_W',5,'VALIDATE',6,'WORKLOAD',
+                        7,'FILTER','UNKNOWN') AS type,
+        decode(m.status,0,'UNUSED',1,'CANCELLED',2,'IN_PROGRESS',3,'COMPLETED',
+                      4,'ERROR','UNKNOWN') AS status,
+        m.message,
+        m.completed,
+        m.total,
+        m.error_code
+     from system.mview$_adv_log m, all_users u
+     where m.uname = u.username
+     and   u.user_id = userenv('SCHEMAID')
+  SQL
+  create_view "mview_filterinstance", sql_definition: <<-SQL
+      select
+        a.runid# as runid,
+        a.filterid# as filterid,
+        a.subfilternum# as subfilternum,
+        decode(a.subfiltertype,1,'APPLICATION',2,'CARDINALITY',3,'LASTUSE',
+                               4,'FREQUENCY',5,'USER',6,'PRIORITY',7,'BASETABLE',
+                               8,'RESPONSETIME',9,'COLLECTIONID',10,'TRACENAME',
+                               11,'SCHEMA','UNKNOWN') AS subfiltertype,
+        a.str_value,
+        to_number(decode(a.num_value1,-999,NULL,a.num_value1)) AS num_value1,
+        to_number(decode(a.num_value2,-999,NULL,a.num_value2)) AS num_value2,
+        a.date_value1,
+        a.date_value2
+     from system.mview$_adv_filterinstance a
+  SQL
+  create_view "mview_recommendations", sql_definition: <<-SQL
+      select
+    t1.runid# as runid,
+    t1.from_clause as all_tables,
+    fact_tables,
+    grouping_levels,
+    query_text,
+    rank# as recommendation_number,
+    action_type as recommended_action,
+    summary_owner as mview_owner,
+    summary_name as mview_name,
+    storage_in_bytes,
+    pct_performance_gain,
+    benefit_to_cost_ratio
+  from SYSTEM.MVIEW$_ADV_OUTPUT t1, SYSTEM.MVIEW$_ADV_LOG t2, ALL_USERS u
+  where
+    t1.runid# = t2.runid# and
+    u.username = t2.uname and
+    u.user_id = userenv('SCHEMAID') and
+    t1.output_type = 0
+  order by t1.rank#
+  SQL
+  create_view "mview_evaluations", sql_definition: <<-SQL
+      select
+    t1.runid# as runid,
+    summary_owner AS mview_owner,
+    summary_name AS mview_name,
+    rank# as rank,
+    storage_in_bytes,
+    frequency,
+    cumulative_benefit,
+    benefit_to_cost_ratio
+  from SYSTEM.MVIEW$_ADV_OUTPUT t1, SYSTEM.MVIEW$_ADV_LOG t2, ALL_USERS u
+  where
+    t1.runid# = t2.runid# and
+    u.username = t2.uname and
+    u.user_id = userenv('SCHEMAID') and
+    t1.output_type = 1
+  order by t1.rank#
+  SQL
+  create_view "mview_exceptions", sql_definition: <<-SQL
+      select
+    t1.runid# as runid,
+    owner,
+    table_name,
+    dimension_name,
+    relationship,
+    bad_rowid
+  from SYSTEM.MVIEW$_ADV_EXCEPTIONS t1, SYSTEM.MVIEW$_ADV_LOG t2, ALL_USERS u
+  where
+    t1.runid# = t2.runid# and
+    u.username = t2.uname and
+    u.user_id = userenv('SCHEMAID')
+  SQL
+  create_view "aq$def$_aqcall", sql_definition: <<-SQL
+      SELECT q_name QUEUE, msgid MSG_ID, corrid CORR_ID, priority MSG_PRIORITY, decode(state, 0,   'READY',
+                                  1,   'WAIT',
+                                  2,   'PROCESSED',
+                                  3,   'EXPIRED',
+                                  10,  'BUFFERED_EXPIRED') MSG_STATE, cast(FROM_TZ(delay, '00:00')
+                    at time zone sessiontimezone as date) DELAY, cast(FROM_TZ(delay, '00:00')
+                 at time zone sessiontimezone as timestamp) DELAY_TIMESTAMP, expiration, cast(FROM_TZ(enq_time, '00:00')
+                    at time zone sessiontimezone as date) ENQ_TIME, cast(FROM_TZ(enq_time, '00:00')
+                    at time zone sessiontimezone as timestamp) 
+                    ENQ_TIMESTAMP, enq_uid ENQ_USER_ID, enq_tid ENQ_TXN_ID, cast(FROM_TZ(deq_time, '00:00')
+                    at time zone sessiontimezone as date) DEQ_TIME, cast(FROM_TZ(deq_time, '00:00')
+                    at time zone sessiontimezone as timestamp) 
+                    DEQ_TIMESTAMP, deq_uid DEQ_USER_ID, deq_tid DEQ_TXN_ID, retry_count,  decode (state, 0, exception_qschema, 
+                                    1, exception_qschema, 
+                                    2, exception_qschema,  
+                                    NULL) EXCEPTION_QUEUE_OWNER,  decode (state, 0, exception_queue, 
+                                    1, exception_queue, 
+                                    2, exception_queue,  
+                                    NULL) EXCEPTION_QUEUE,  user_data,  decode (state, 3, 
+                       decode (deq_tid, 'INVALID_TRANSACTION', NULL, 
+                               exception_queue), NULL)
+                                  ORIGINAL_QUEUE_NAME,  decode (state, 3, 
+                       decode (deq_tid, 'INVALID_TRANSACTION', NULL, 
+                               exception_qschema), NULL)
+                                  ORIGINAL_QUEUE_OWNER,  decode(state, 3, 
+                       decode(deq_time, NULL, 
+                         decode(deq_tid, NULL,
+                         decode (expiration , NULL , 'MAX_RETRY_EXCEEDED',
+                              'TIME_EXPIRATION'),
+                                'INVALID_TRANSACTION', NULL,
+                                'MAX_RETRY_EXCEEDED'), NULL), NULL) 
+                               EXPIRATION_REASON  FROM "DEF$_AQCALL" WHERE state != 7 AND   state != 9 WITH READ ONLY
+  SQL
+  create_view "aq$_def$_aqcall_f", sql_definition: <<-SQL
+      SELECT  /*+ NO_MERGE (qo) USE_NL(qt) */ qt.q_name Q_NAME, qt.rowid ROW_ID, qt.msgid MSGID, qt.corrid CORRID, qt.priority PRIORITY, qt.state STATE, cast(FROM_TZ(qt.delay, '00:00') at time zone sessiontimezone as timestamp) DELAY, qt.expiration EXPIRATION, cast(FROM_TZ(qt.enq_time, '00:00') at time zone sessiontimezone as timestamp) ENQ_TIME, qt.enq_uid ENQ_UID, qt.enq_tid ENQ_TID, cast(FROM_TZ(qt.deq_time, '00:00') at time zone sessiontimezone as timestamp) DEQ_TIME, qt.deq_uid DEQ_UID, qt.deq_tid DEQ_TID, qt.retry_count RETRY_COUNT, qt.exception_qschema EXCEPTION_QSCHEMA, qt.exception_queue EXCEPTION_QUEUE, qt.cscn CSCN, qt.dscn DSCN, qt.chain_no CHAIN_NO, qt.local_order_no LOCAL_ORDER_NO, cast(FROM_TZ(qt.time_manager_info, '00:00') at time zone sessiontimezone as timestamp)   TIME_MANAGER_INFO, qt.step_no STEP_NO, qt.user_data USER_DATA , qo.qid QUEUE_ID  FROM "DEF$_AQCALL" qt, SYS.ALL_INT_DEQUEUE_QUEUES  qo  WHERE qt.q_name = qo.name AND qo.owner = 'SYSTEM' WITH READ ONLY
+  SQL
+  create_view "aq$def$_aqerror", sql_definition: <<-SQL
+      SELECT q_name QUEUE, msgid MSG_ID, corrid CORR_ID, priority MSG_PRIORITY, decode(state, 0,   'READY',
+                                  1,   'WAIT',
+                                  2,   'PROCESSED',
+                                  3,   'EXPIRED',
+                                  10,  'BUFFERED_EXPIRED') MSG_STATE, cast(FROM_TZ(delay, '00:00')
+                    at time zone sessiontimezone as date) DELAY, cast(FROM_TZ(delay, '00:00')
+                 at time zone sessiontimezone as timestamp) DELAY_TIMESTAMP, expiration, cast(FROM_TZ(enq_time, '00:00')
+                    at time zone sessiontimezone as date) ENQ_TIME, cast(FROM_TZ(enq_time, '00:00')
+                    at time zone sessiontimezone as timestamp) 
+                    ENQ_TIMESTAMP, enq_uid ENQ_USER_ID, enq_tid ENQ_TXN_ID, cast(FROM_TZ(deq_time, '00:00')
+                    at time zone sessiontimezone as date) DEQ_TIME, cast(FROM_TZ(deq_time, '00:00')
+                    at time zone sessiontimezone as timestamp) 
+                    DEQ_TIMESTAMP, deq_uid DEQ_USER_ID, deq_tid DEQ_TXN_ID, retry_count,  decode (state, 0, exception_qschema, 
+                                    1, exception_qschema, 
+                                    2, exception_qschema,  
+                                    NULL) EXCEPTION_QUEUE_OWNER,  decode (state, 0, exception_queue, 
+                                    1, exception_queue, 
+                                    2, exception_queue,  
+                                    NULL) EXCEPTION_QUEUE,  user_data,  decode (state, 3, 
+                       decode (deq_tid, 'INVALID_TRANSACTION', NULL, 
+                               exception_queue), NULL)
+                                  ORIGINAL_QUEUE_NAME,  decode (state, 3, 
+                       decode (deq_tid, 'INVALID_TRANSACTION', NULL, 
+                               exception_qschema), NULL)
+                                  ORIGINAL_QUEUE_OWNER,  decode(state, 3, 
+                       decode(deq_time, NULL, 
+                         decode(deq_tid, NULL,
+                         decode (expiration , NULL , 'MAX_RETRY_EXCEEDED',
+                              'TIME_EXPIRATION'),
+                                'INVALID_TRANSACTION', NULL,
+                                'MAX_RETRY_EXCEEDED'), NULL), NULL) 
+                               EXPIRATION_REASON  FROM "DEF$_AQERROR" WHERE state != 7 AND   state != 9 WITH READ ONLY
+  SQL
+  create_view "aq$_def$_aqerror_f", sql_definition: <<-SQL
+      SELECT  /*+ NO_MERGE (qo) USE_NL(qt) */ qt.q_name Q_NAME, qt.rowid ROW_ID, qt.msgid MSGID, qt.corrid CORRID, qt.priority PRIORITY, qt.state STATE, cast(FROM_TZ(qt.delay, '00:00') at time zone sessiontimezone as timestamp) DELAY, qt.expiration EXPIRATION, cast(FROM_TZ(qt.enq_time, '00:00') at time zone sessiontimezone as timestamp) ENQ_TIME, qt.enq_uid ENQ_UID, qt.enq_tid ENQ_TID, cast(FROM_TZ(qt.deq_time, '00:00') at time zone sessiontimezone as timestamp) DEQ_TIME, qt.deq_uid DEQ_UID, qt.deq_tid DEQ_TID, qt.retry_count RETRY_COUNT, qt.exception_qschema EXCEPTION_QSCHEMA, qt.exception_queue EXCEPTION_QUEUE, qt.cscn CSCN, qt.dscn DSCN, qt.chain_no CHAIN_NO, qt.local_order_no LOCAL_ORDER_NO, cast(FROM_TZ(qt.time_manager_info, '00:00') at time zone sessiontimezone as timestamp)   TIME_MANAGER_INFO, qt.step_no STEP_NO, qt.user_data USER_DATA , qo.qid QUEUE_ID  FROM "DEF$_AQERROR" qt, SYS.ALL_INT_DEQUEUE_QUEUES  qo  WHERE qt.q_name = qo.name AND qo.owner = 'SYSTEM' WITH READ ONLY
+  SQL
+  create_view "product_privs", sql_definition: <<-SQL
+      SELECT PRODUCT, USERID, ATTRIBUTE, SCOPE,
+           NUMERIC_VALUE, CHAR_VALUE, DATE_VALUE, LONG_VALUE
+    FROM SQLPLUS_PRODUCT_PROFILE
+    WHERE USERID = 'PUBLIC' OR USER LIKE USERID
+  SQL
+  create_view "user_vac_centers", sql_definition: <<-SQL
+      SELECT
+    ASSIGNED_VACCS.user_id,
+    ASSIGNED_VACCS.vaccine_center_id
+  FROM ASSIGNED_VACCS
+  SQL

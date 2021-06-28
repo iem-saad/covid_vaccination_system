@@ -18,9 +18,8 @@
         <td><%= vacc_name admin_allocated_vacc.vac_id %></td>
         <td><%= center_name admin_allocated_vacc.center_id %></td>
         <td><%= admin_allocated_vacc.amount %></td>
-        <td><%= link_to 'Show', admin_allocated_vacc %></td>
-        <td><%= link_to 'Edit', edit_admin_allocated_vacc_path(admin_allocated_vacc) %></td>
-        <td><%= button_to 'Destroy', admin_allocated_vacc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin_allocated_vacc, class: 'btn btn-info btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_admin_allocated_vacc_path(admin_allocated_vacc), class: 'btn btn-info btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Admin Allocated Vacc', new_admin_allocated_vacc_path %>
+<%= link_to 'New Admin Allocated Vacc', new_admin_allocated_vacc_path, class: 'btn btn-primary' %>

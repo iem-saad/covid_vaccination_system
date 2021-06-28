@@ -18,9 +18,8 @@
         <td><%= admin_vaccination_center.name %></td>
         <td><%= admin_vaccination_center.location %></td>
         <td><%= user_name admin_vaccination_center.head_id %></td>
-        <td><%= link_to 'Show', admin_vaccination_center %></td>
-        <td><%= link_to 'Edit', edit_admin_vaccination_center_path(admin_vaccination_center) %></td>
-        <td><%= button_to 'Destroy', admin_vaccination_center, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin_vaccination_center, class: 'btn btn-info btn-sm' %></td>
+        <td><%= link_to 'Edit', edit_admin_vaccination_center_path(admin_vaccination_center), class: 'btn btn-info btn-sm' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +27,4 @@
 
 <br>
 
-<%= link_to 'New Admin Vaccination Center', new_admin_vaccination_center_path %>
+<%= link_to 'New Admin Vaccination Center', new_admin_vaccination_center_path, class: 'btn btn-primary' %>

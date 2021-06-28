@@ -3,35 +3,39 @@
   Successfully Vaccinated User
 </div>
 <% end %>
-<h2>Hello, <%= current_user.first_name %></h2>
-<% if @center_data.present? %>
-<div class="row mt-5">
-	<h4>You Are Assigned to <%= @center_data.name %></h4>
-	<h4>Location is <%= @center_data.location%></h4>	
+<div class="alert alert-dark" role="alert">
+	<h2 class="text-center">Hello, <%= current_user.first_name %></h2>
+	<% if @center_data.present? %>
+	<div class="row mt-5">
+		<h4>You Are Assigned to <%= @center_data.name %></h4>
+		<h4>Location is <%= @center_data.location%></h4>	
+	</div>
 </div>
-<div class="row">
-	<h2>Following Are Available Vaccines </h2>
-	<table>
-	  <thead>
-	    <tr>
-	      <th>Vaccine</th>
-	      <th>Dose Count</th>
-	    </tr>
-	  </thead>
+<div class="container">
+	<div class="alert alert-info" role="alert">
+	<h2 class="text-center">Following Are Available Vaccines </h2>
+		<table>
+		  <thead>
+		    <tr>
+		      <th>Vaccine</th>
+		      <th>Dose Count</th>
+		    </tr>
+		  </thead>
 
-	  <tbody>
-	  	<% name = Array.new(100)%>
-	  	<% amount = Array.new(100)%>
-	    <% @vaccines.each_with_index do |vaccine, index| %>
-	      <tr>
-	        <td><%= vacc_name vaccine.vac_id %></td>
-	         <%name[index] = vacc_name vaccine.vac_id %> 	
-	        <td><%= vaccine.amount %></td>
-	         <%amount[index] = vaccine.amount %> 	
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+		  <tbody>
+		  	<% name = Array.new(100)%>
+		  	<% amount = Array.new(100)%>
+		    <% @vaccines.each_with_index do |vaccine, index| %>
+		      <tr>
+		        <td><%= vacc_name vaccine.vac_id %></td>
+		         <%name[index] = vacc_name vaccine.vac_id %> 	
+		        <td><%= vaccine.amount %></td>
+		         <%amount[index] = vaccine.amount %> 	
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
 </div>
 <% if @center_persons.any? %>
 <div class="row">
@@ -66,8 +70,10 @@
 	  </tbody>
 	</table>
 </div>
-<h3 class="text-center mt-5">Vaccination Drive Matices For Your Center </h3>
+<div class="alert alert-warning mt-5" role="alert">
+<h3 class="text-center mt-5">Vaccination Drive Matrices For Your Center </h3>
 <%= pie_chart({"Got Vaccinated" => count, "Applicants Left With Vaccination" => @center_persons.count - count - par_count, "Got First Dose Only" => par_count}) %>
+</div>
 <% else %>
 	<div class="row">Ops! There is no one to get vaccinated. Please Enhance Your Vaccination Compaign</div>
 <% end %>

@@ -1,16 +1,21 @@
-<h3>Hello! Admin Have a Good Day!</h3>
-<h5>Today is <%="#{Date.today.strftime("%d %B %y")}"%></h5>
-<div class="row">
-	<%= link_to 'Vaccines', admin_vaccines_path, class: 'btn btn-primary' %>
+<div class="alert alert-success" role="alert">
+	<h3>Hello! Admin Have a Good Day!</h3>
+	<h5>Today is <%="#{Date.today.strftime("%d %B %y")}"%></h5>
 </div>
-<div class="row pt-5">
-	<%= link_to 'Vaccination Centers', admin_vaccination_centers_path, class: 'btn btn-primary' %>
+<div class="alert alert-light" role="alert">
+	<div class="row">
+		<%= link_to 'Vaccines', admin_vaccines_path, class: 'btn btn-primary' %>
+	</div>
+	<div class="row pt-5">
+		<%= link_to 'Vaccination Centers', admin_vaccination_centers_path, class: 'btn btn-primary' %>
+	</div>
+
+	<div class="row pt-5">
+		<%= link_to 'Allocate Vaccines', admin_allocated_vaccs_path, class: 'btn btn-primary' %>
+	</div>
 </div>
 
-<div class="row pt-5">
-	<%= link_to 'Allocate Vaccines', admin_allocated_vaccs_path, class: 'btn btn-primary' %>
-</div>
-
+<div class="alert alert-warning mt-5" role="alert">
 <div class="row">
 	<h2>Pie Chart For Vaccination Registrations</h2>
 	<%= pie_chart({"Applied For Vaccination" => @applied_vac, "Not Applied For Vaccination" => @non_applied_vac}) %>
@@ -18,4 +23,5 @@
 <div class="row">
 	<h2>Pie Chart For Vaccination Drive</h2>
 	<%= pie_chart({"Got Vaccinated" => @vaccinated, "Applicants Left With Vaccination" => @applied_vac - @vaccinated}) %>
+</div>
 </div>

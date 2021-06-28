@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'activerecord-oracle_enhanced-adapter', '~> 6.1', '>= 6.1.4'
 gem 'ruby-oci8', '~> 2.2', '>= 2.2.9'
 gem 'hairtrigger'
+# Gem for views
+gem 'scenic', '~> 1.5', '>= 1.5.4'
 # Gem for authorization
 gem 'cancancan'
 

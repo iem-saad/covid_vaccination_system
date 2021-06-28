@@ -28,6 +28,7 @@ class Admin::AllocatedVaccsController < ApplicationController
     old_amount = old_amount.rows.first.first
     if old_amount >= admin_allocated_vacc_params[:amount].to_i
       max_id = Admin::AllocatedVacc.maximum(:id)
+      max_id = 0 if max_id.nil?
       sql = "INSERT INTO ADMIN_ALLOCATED_VACCS VALUES (#{max_id+1}, '#{admin_allocated_vacc_params[:vac_id]}', #{admin_allocated_vacc_params[:center_id]}, #{admin_allocated_vacc_params[:amount]})"
       respond_to do |format|
         if ActiveRecord::Base.connection.exec_insert(sql)

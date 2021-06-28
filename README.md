@@ -13,7 +13,7 @@ Things you may want to cover:
 
 * Database initialization (Get Oracle Connection String using tnsping dn_name)
 
-                                                          COVID VACCINATION SYSTEM
+                                            COVID VACCINATION SYSTEM
 We are students of FAST NUCES and we were assigned a Covid development application in which we have implemented many features using ruby on rails. Through this technique, we have properly binded our whole application which is then further divided into different namespaces such as 
 •	Admin Namespace 
 •	User Namespace 

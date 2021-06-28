@@ -5,20 +5,11 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 2.7
 
-* System dependencies
+* System dependencies (charkick, yarn,bootsrap, npm, popper) 
 
-* Configuration
+* Database Userd Oracle
 
-* Database creation
+* Database initialization (Get Oracle Connection String using tnsping dn_name)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

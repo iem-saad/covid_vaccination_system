@@ -4,5 +4,6 @@ class Admin::DashboardController < Admin::AdminController
     @non_applied_vac = ActiveRecord::Base.connection.exec_query("SELECT count(id) FROM USERS").rows.first.first
     @vaccinated = ActiveRecord::Base.connection.exec_query("SELECT COUNT ( DISTINCT id ) FROM USERS WHERE vac_stage = 2").rows.first.first
     @non_applied_vac = @non_applied_vac - @applied_vac
+    @all_users = User.find_by_sql("SELECT * FROM USERS")
   end
 end

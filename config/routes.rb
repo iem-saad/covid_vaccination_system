@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   get '/vac_details', to: 'assigned_vaccs#view_vaccination_details'
   get '/about', to: 'home#about'
   get '/contact', to: 'home#contact'
+  get '/show_user', to: 'dashboard#show_user'
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

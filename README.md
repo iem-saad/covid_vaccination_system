@@ -14,7 +14,7 @@ Things you may want to cover:
 
 * Database initialization (Get Oracle Connection String using tnsping dn_name)
 
-                                                          ABOUT APP
+                                                         ABOUT APP
 I am a student of FAST NUCES and I was assigned a Covid development application in which we have implemented many features using ruby on rails. Through this technique, I have properly binded whole application which is then further divided into different namespaces such as 
 •	Admin Namespace 
 •	User Namespace 

@@ -8,7 +8,7 @@ Things you may want to cover:
 
 * Ruby version 2.7
 
-* System dependencies (charkick, yarn,bootsrap, npm, popper) 
+* System dependencies (chartkick, yarn,bootsrap, npm, popper) 
 
 * Database Used => Oracle
 

@@ -26,6 +26,7 @@ class AssignedVaccsController < ApplicationController
     max_id = 0 if max_id.nil?
     center = ActiveRecord::Base.connection.exec_query("SELECT ID FROM ADMIN_VACCINATION_CENTERS").rows.shuffle.first.first
     vacc = ActiveRecord::Base.connection.exec_query("SELECT vac_id FROM ADMIN_ALLOCATED_VACCS WHERE center_id = #{center}").rows.shuffle.first.first
+    #using raw sql
     sql = "INSERT INTO ASSIGNED_VACCS VALUES (#{max_id+1}, #{assigned_vacc_params[:user_id]}, #{vacc}, #{center})"
     respond_to do |format|
       if ActiveRecord::Base.connection.exec_insert(sql)

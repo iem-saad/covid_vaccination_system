@@ -49,3 +49,9 @@ User will be allotted any kind of vaccine with a unique pin that will be require
 Vaccination Center Head namespace will be logged in by the head of a vaccine center. It gives the head of vaccine center complete authority to get complete information of people that will get vaccinated in vaccine center. Head can vaccinate user by clicking on vaccination button given on the screen but before getting vaccinated user must tell the unique pin to head so that there won’t be any bluff. I have maintained the integrity of our application with the help of unique code so that people can’t get vaccinated in place of any other person.
 When a person is vaccinated, the application will check if the vaccine was single dose or double dose. If the vaccine is double dosed, the user will be applicable for second dose. If the user is completely vaccinated, user’s name will be added to the list of “fully vaccinated people”. The user’s dashboard will also show the “fully vaccinated” label. 
 In the application, we have also provided a chart to head and admin that shows list of people in vaccination center, people that are partially vaccinated, people that are fully vaccinated and people remaining.
+
+Following is snapshot of UI of this project.
+As the main learning object of project was to work on ROR with Oracle custom queries hence for front-end I usedaa bootstrap 4 template name `novena`
+
+![fast vacc](https://user-images.githubusercontent.com/54322326/182030787-d148165a-1bc5-43d3-96b3-a2789c8b42b8.JPG)
+
